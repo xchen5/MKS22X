@@ -4,6 +4,9 @@ public class QueenBoard{
   private int solutionCount;
 
   public QueenBoard(int size){
+    if ((size == 2) || (size ==3) || (size <= 0)) {
+      throw new IllegalArgumentException();
+    }
     board = new int[size][size];
   }
 
@@ -20,13 +23,24 @@ public class QueenBoard{
   {
     solveH(0);
   }
-  public void countSolutions() {
-    solveH(0);
+
+  public void countSolutions(){
+   solveC(0);
   }
 
-  /* public int getCount() {
-  return solutionCount;
-} */
+private void solveC(int col){
+  if (col == board.length){
+    solutionCount ++;
+    return;
+  }
+  for(int row = 0; row < board.length; row++){
+    if (board[row][col] == 0) {
+      addQueen(row, col);
+      solveC(col + 1);
+      removeQueen(row, col);
+    }
+  }
+}
 
 private boolean solveH(int col){
   if (col == board.length){
@@ -37,19 +51,24 @@ private boolean solveH(int col){
       addQueen(row, col);
       if (solveH(col + 1)){
         return true;
-      }
+      };
       removeQueen(row, col);
     }
   }
   return false;
-}
+   }
 
 /**
 *@return the number of solutions found, or -1 if the board was never solved.
 *The board should be reset after this is run.
 */
-/*  public int getSolutionCount(){
-return -1;
+public int getSolutionCount(){
+  if (solutionCount == 0 ){
+    return -1;
+  }
+  else {
+    return solutionCount;
+  }
 }
 /**toString
 *and all nunbers that represent queens are replaced with 'Q'
@@ -126,10 +145,4 @@ private void removeQueen(int r, int c) {
   board[r][c] = 0;
 }
 
-public static void main(String[] args) {
-  QueenBoard a = new QueenBoard(4);
-  a.solve();
-  //a.addQueen(1,0);
-  System.out.println(a.toString());
-}
 }
