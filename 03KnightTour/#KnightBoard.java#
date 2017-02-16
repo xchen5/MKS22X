@@ -75,7 +75,7 @@ public class KnightBoard {
 
     public static void main(String[]args){
 	KnightBoard a = new KnightBoard(5,7);
-	a.solveH(0,0,35);
+	a.
 	System.out.println(a.toString());
     }
 
