@@ -8,20 +8,15 @@ public class KnightBoard {
     }
     
     private boolean addKnight(int row, int col, int number){
-	try {
-	    if (board[row][col] == 0){
+	    if (board[row][col] == 0 && (row < board.length) && (col < board[0].length)){
 		board[row][col] = number;
 		return true;
 	    }
 	    else {
 		return false;
-	    }
-	}
-	catch (IndexOutOfBoundsException e) {
-	    return false;
-	}
+	    }    
+	
     }
-     
      private void removeKnight(int row, int col){
 	 try {
 	     board[row][col] = 0;
@@ -60,7 +55,10 @@ public class KnightBoard {
 	    else if (solveH(row - 2, col +1,level ++) && addKnight (row - 2, col + 1, level ++)){
 		return true;
 	    }
-	    removeKnight(row,col);
+	    else {
+		removeKnight(row, col);
+	    }
+	    
 	}
 	return false;
     }
@@ -74,8 +72,8 @@ public class KnightBoard {
      }
 
     public static void main(String[]args){
-	KnightBoard a = new KnightBoard(5,7);
-	a.solveH(0,0,35);
+	KnightBoard a = new KnightBoard(7,7);
+	a.solveH(0,0,1);
 	System.out.println(a.toString());
     }
 
