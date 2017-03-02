@@ -5,6 +5,10 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;
+    private int startRow;
+    private int startCol;
+    private int endRow;
+    private int endCol;
 
     /*Constructor loads a maze text file, and sets animate to false by default.
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -19,8 +23,11 @@ public class Maze{
     public Maze(String filename){
 	try {
 	    Scanner sc = new Scanner(new File(filename));
+	    Scanner scan = new Scanner(new File(filename));
 	    int r = 0;
 	    int c = 0;
+	    boolean E = false;
+	    boolean S = false;
 	   
 	     while(sc.hasNextLine()){
 		r += 1;
@@ -32,13 +39,37 @@ public class Maze{
 	     System.out.println("r:" + r +", c:" + c);
 	     System.out.println("# of chars: " + (maze.length * maze[1].length));
 	     //Putting the chars into the array
-	     int row = 0;
-	     while(sc.hasNextLine()){
-		 row += 1;
+	     int row = -1;
+	     while(scan.hasNextLine()){
+		  row += 1;
+		  // System.out.println(row);
+		 String txt = scan.nextLine();
+		 //System.out.println(txt);
 		 for(int col = 0;col < c; col++) {
-		     maze[row][col] = (sc.nextLine()).charAt(col);
+		     maze[row][col] = txt.charAt(col);
+		     if (maze[row][col] == 'E') {
+			 E = true;
+			 endRow = row;
+			 endCol = col;
+		     }
+		     if (maze[row][col] == 'S'){
+			 S = true;
+			 startRow = row;
+			 startCol = col;
+		     }
+		     /* System.out.println("row is: " + row + " col is: " + col + " char is:  " +  maze[row][col]);*/
+		    
 		 }
 	     }
+	     
+	     if (S == false || E == false) {
+		 System.out.println("There is no start (S) or end (E) in the text file");
+		 System.exit(0);
+	     }
+	     // System.out.println("S is: " + S);
+	     // System.out.println("E is: " + E); 
+	      System.out.println("These are the starting coordinates: " + startRow + ", " + startCol + " test:  " +  maze[5][1]);
+	      System.out.println("These are the ending coordinates: " + endRow + ", " + endCol + " test: " +  maze[3][3] );
 	     System.out.println(Arrays.deepToString(maze));
 	}
 	catch(FileNotFoundException e) {
@@ -47,7 +78,7 @@ public class Maze{
 
     }
 
-    /*    private void wait(int millis){ //ADDED SORRY!
+        private void wait(int millis){ //ADDED SORRY!
          try {
              Thread.sleep(millis);
          }
