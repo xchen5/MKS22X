@@ -26,6 +26,7 @@ public class Maze{
 	    Scanner scan = new Scanner(new File(filename));
 	    int r = 0;
 	    int c = 0;
+
 	    boolean E = false;
 	    boolean S = false;
 	   
@@ -99,12 +100,13 @@ public class Maze{
     /*Wrapper Solve Function
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
-    /* public boolean solve(){
-            int startx=0,starty=0;
+     public boolean solve(){
+	 int startx= startRow;
+	 int starty= startCol;
             //Initialize startx and starty with the location of the S. 
             maze[startx][starty] = ' ';//erase the S, and start solving!
             return solve(startx,starty);
-    } */
+    } 
 
     /*
       Recursive Solve function:
@@ -119,18 +121,44 @@ public class Maze{
         All visited spots that were not part of the solution are changed to '.'
         All visited spots that are part of the solution are changed to '@'
     */
-    /* private boolean solve(int x, int y){
+     private boolean solve(int x, int y){
         if(animate){
-            System.out.println("\033[2J\033[1;1H"+this);
+            System.out.println("\033[2J\033[1;1H"+toString());
             wait(20);
         }
-
+	if (maze[x][y] == 'E'){
+	    return true;
+	}
+	if (!(maze[x][y] == '#')) {
+	    maze[x][y] = '@';
+	    if(solve(x+1, y) ||
+	       solve(x-1, y) ||
+	       solve(x, y+1) ||
+	       solve(x, y-1))
+		{
+		    return true;
+		}
+	    maze[x][y] = '.';
+	}
+		    
         //COMPLETE SOLVE
         return false; //so it compiles
-	} */
+     }
+    public String toString(){
+	String temp = "";
+	for (int r = 0; r<maze.length; r++){
+	    temp += "\n";
+	    for (int c = 0; c <maze[0].length; c++){
+		temp += maze[r][c];
+	    }
+	}
+	return temp;
+    }
     public static void main (String[]args) {
 	Maze f;
 	f = new Maze("test.txt");
+	f.solve();
+
     }
 
 }
