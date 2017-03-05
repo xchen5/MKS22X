@@ -4,10 +4,8 @@ public class QueenBoard{
   private int solutionCount;
 
   public QueenBoard(int size){
-    if ((size == 2) || (size ==3) || (size <= 0)) {
-      throw new IllegalArgumentException();
-    }
     board = new int[size][size];
+    solutionCount = -1;
   }
 
   /**
@@ -26,11 +24,12 @@ public class QueenBoard{
 
   public void countSolutions(){
    solveC(0);
+   solutionCount += 1;
   }
 
 private void solveC(int col){
   if (col == board.length){
-    solutionCount ++;
+    solutionCount += 1;
     return;
   }
   for(int row = 0; row < board.length; row++){
@@ -40,6 +39,7 @@ private void solveC(int col){
       removeQueen(row, col);
     }
   }
+  return ;
 }
 
 private boolean solveH(int col){
@@ -63,11 +63,17 @@ private boolean solveH(int col){
 *The board should be reset after this is run.
 */
 public int getSolutionCount(){
-  if (solutionCount == 0 ){
+  if (solutionCount == -1 ){
     return -1;
   }
   else {
+    for (int r = 0; r < board.length; r++) {
+      for (int c= 0; c<board.length; c++) {
+        board[r][c] = 0;
+      }
+    }
     return solutionCount;
+
   }
 }
 /**toString
@@ -106,10 +112,10 @@ private void addQueen(int r,int c) {
   for( int i = 0 ;(r + i >= 0)&&(c + i >= 0); i--) {
     board[r+i][c+i]+=1;
   }
-  for( int i = 0 ;(r + i < board.length)&&(c - i > 0); i++) {
+  for( int i = 0 ;(r + i < board.length)&&(c - i >= 0); i++) {
     board[r+i][c-i]+=1;
   }
-  for( int i = 0 ;(r-i > 0)&&(c + i <board.length); i++) {
+  for( int i = 0 ;(r-i >= 0)&&(c + i <board.length); i++) {
     board[r-i][c+i]+=1;
   }
   board[r][c] = -1;
@@ -136,13 +142,18 @@ private void removeQueen(int r, int c) {
   for( int i = 0 ;(r + i >= 0)&&(c + i >= 0); i--) {
     board[r+i][c+i]-=1;
   }
-  for( int i = 0 ;(r + i < board.length)&&(c - i > 0); i++) {
+  for( int i = 0 ;(r + i < board.length)&&(c - i >= 0); i++) {
     board[r+i][c-i]-=1;
   }
-  for( int i = 0 ;(r-i > 0)&&(c + i <board.length); i++) {
+  for( int i = 0 ;(r-i >= 0)&&(c + i <board.length); i++) {
     board[r-i][c+i]-=1;
   }
   board[r][c] = 0;
 }
 
+  public static void main(String[] args) {
+      QueenBoard a = new QueenBoard(2);
+      a.countSolutions();
+      System.out.println(a.getSolutionCount());
+  }
 }

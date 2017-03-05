@@ -3,7 +3,8 @@ public class Recursion{
    return "Chen, Xavier";
  };
  public static double sqrt(double n){
-    return sqrtHelper(n, 50);
+    if (n == 0) return 0;
+    else return sqrtHelper(n, 50);
    }
 
  private static boolean isClose(double x, double y) {
@@ -19,5 +20,8 @@ public class Recursion{
     else {
       return sqrtHelper(n, ((n/guess + guess) / 2));
     }
+ }
+ public static void main(String[] args) {
+    System.out.println(sqrt(0));
  }
 }
