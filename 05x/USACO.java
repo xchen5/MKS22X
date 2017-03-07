@@ -1,10 +1,48 @@
 import java.io.*;
 import java.util.*;
 public class USACO{
-  /*public int bronze(String filename){
-
-  }*/
-  public int silver(String filename){
+  private int[][]bronzePasture;
+  private int finalElevation;
+  public void bronze(String filename){
+      try {
+	  Scanner sc = new Scanner(new File(filename));
+	  int row = Integer.parseInt(sc.next());
+	  int col = Integer.parseInt(sc.next());
+	  bronzePasture = new int[row][col];
+	  finalElevation = Integer.parseInt(sc.next());
+	  int numInstructions = Integer.parseInt(sc.next());
+	  sc.nextLine();
+	  for (int r = 0; r<row; r++){
+	      for(int c = 0; c<col;c++) {
+		  bronzePasture[r][c] = Integer.parseInt(sc.next());
+	      }
+	  }
+	  for(int i = 0; i < numInstructions; i++){
+	      cowStomping(Integer.parseInt(sc.next()), Integer.parseInt(sc.next()), Integer.parseInt(sc.next()));
+	  }
+	  //System.out.println(sc.next());
+	  //System.out.println(sc.next());
+	  //System.out.println(finalElevation);
+	  System.out.println(Arrays.deepToString(bronzePasture));
+  }
+      catch(FileNotFoundException e){
+	  System.out.println("File not found");
+	  System.exit(0);
+      }
 
   }
+    private void cowStomping(int row, int column, int depth){
+	System.out.println(row);
+	System.out.println(column);
+	System.out.println(depth);
+      }
+
+  /* public int silver(String filename){
+
+  }*/
+
+    public static void main(String[]args){
+	USACO x = new USACO();
+	x.bronze("makelake.txt");
+    }
 }
