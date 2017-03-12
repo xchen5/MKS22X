@@ -37,8 +37,8 @@ public class Maze{
       c = c/r;
       maze = new char[r][c];
 
-      System.out.println("r:" + r +", c:" + c);
-      System.out.println("# of chars: " + (maze.length * maze[1].length));
+      //System.out.println("r:" + r +", c:" + c);
+      //System.out.println("# of chars: " + (maze.length * maze[1].length));
       //Putting the chars into the array
       int row = -1;
       while(scan.hasNextLine()){
@@ -69,9 +69,9 @@ public class Maze{
       }
       // System.out.println("S is: " + S);
       // System.out.println("E is: " + E);
-      System.out.println("These are the starting coordinates: " + startRow + ", " + startCol + " test:  " +  maze[5][1]);
-      System.out.println("These are the ending coordinates: " + endRow + ", " + endCol + " test: " +  maze[3][3] );
-      System.out.println(Arrays.deepToString(maze));
+      //System.out.println("These are the starting coordinates: " + startRow + ", " + startCol + " test:  " +  maze[5][1]);
+      //System.out.println("These are the ending coordinates: " + endRow + ", " + endCol + " test: " +  maze[3][3] );
+      //System.out.println(Arrays.deepToString(maze));
     }
     catch(FileNotFoundException e) {
       System.out.println("File not found");
@@ -168,4 +168,3 @@ public class Maze{
   }*/
 
 }
-
