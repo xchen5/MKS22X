@@ -9,7 +9,7 @@ public static int part(int[]data,int start, int end){
   int lt = start;
   int gt = end;
   int i = start;
-  int pivot = (int) (Math.random() * end) ;
+  int pivot = (int) (Math.random() * (end - start)) + start ;
   int pivotValue = data[pivot];
   //System.out.println(Arrays.toString(data));
   //System.out.println(pivotValue);
@@ -71,7 +71,7 @@ public static void quicksort(int[]data) {
 }
 public static void main(String[]args){
   int[]ary={4,3,2,1,5,0,2,4,5,7};
-  System.out.println(quickselect(ary, 5));
+  quicksort(ary);
 }
 
 }
