@@ -67,11 +67,11 @@ public static void quickSortHelper(int[]data, int start, int end){
 
 public static void quicksort(int[]data) {
   quickSortHelper(data,0,data.length-1);
-  System.out.println(Arrays.toString(data));
+  //System.out.println(Arrays.toString(data));
 }
 public static void main(String[]args){
-  int[]ary={4,3,2,1,5,0,2,4,5,7};
-  quicksort(ary);
+  //int[]ary={4,3,2,1,5,0,2,4,5,7};
+  //quicksort(ary);
 }
 
 }

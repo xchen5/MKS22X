@@ -71,7 +71,7 @@ public static void quicksort(int[]data) {
 }
 public static void main(String[]args){
   int[]ary={4,3,2,1,5,0,2,4,5,7};
-  System.out.println(quicksort(ary));
+  quicksort(ary);
 }
 
 }
