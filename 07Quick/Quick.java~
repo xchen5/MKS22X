@@ -49,10 +49,10 @@ public static int quickselect(int[]data, int k){
 public static int quickSelectHelper(int[]data, int k, int start, int end){
   int pivot = part(data,start,end);
   if(pivot > k){
-    return quickSelectHelper(data,k,start, pivot);
+    return quickSelectHelper(data,k,start, pivot - 1);
   }
   if(pivot < k) {
-    return quickSelectHelper(data,k, pivot, end);
+    return quickSelectHelper(data,k, pivot + 1, end);
   }
   return data[pivot];
 }
@@ -67,11 +67,11 @@ public static void quickSortHelper(int[]data, int start, int end){
 
 public static void quicksort(int[]data) {
   quickSortHelper(data,0,data.length-1);
-  System.out.println(Arrays.toString(data));
+  //System.out.println(Arrays.toString(data));
 }
 public static void main(String[]args){
   int[]ary={4,3,2,1,5,0,2,4,5,7};
-  quicksort(ary);
+  System.out.println(quickselect(ary, 2));
 }
 
 }
