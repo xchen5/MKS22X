@@ -1,6 +1,10 @@
 public class Merge {
     public static void merge(int[]a,int[]b,int[]destination) {
-	
+	int i = 0;
+	int j = 0;
+	while (i < a.length && j < b.length){
+
+	}
     }
     public static void main(String[]args){
 	int[]a = {0,2,4,6,8};
