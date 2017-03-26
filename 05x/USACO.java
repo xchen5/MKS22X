@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 public class USACO {
   private int[][]bronzePasture;
-  private char[][]silverPasture;
+  private int[][]silverPasture;
   private int seconds;
   private int solutionCount;
   private int secTrack;
@@ -64,78 +64,98 @@ public class USACO {
     }
   }
 
-  public void silver(String filename){
+  public int silver(String filename){
     try {
       solutionCount = 0;
       Scanner sc  = new Scanner (new File(filename));
       int row = Integer.parseInt(sc.next());
       int col = Integer.parseInt(sc.next());
-      silverPasture = new char[row][col];
+      silverPasture = new int[row][col];
       seconds = Integer.parseInt(sc.next());
       sc.nextLine();
       for(int r = 0; r < row; r++){
         String txt = sc.nextLine();
         //System.out.println(txt);
         for (int c = 0; c< col; c++) {
-            silverPasture[r][c] = txt.charAt(c);
+            if(txt.charAt(c) == '.'){
+              silverPasture[r][c] = 0;
+            }
+            else if(txt.charAt(c) == '*'){
+              silverPasture[r][c] = -1;
+            }
         }
       }
-
-      String out = "";
-      for (int r = 0; r< row; r++) {
-        out += "\n";
-        for(int c = 0; c< col; c++) {
-          out += silverPasture[r][c];
-        }
-      }
-      System.out.println(out);
       int row1 = Integer.parseInt(sc.next()) - 1;
       int col1 = Integer.parseInt(sc.next()) - 1;
       int row2 = Integer.parseInt(sc.next()) - 1;
       int col2 = Integer.parseInt(sc.next()) - 1;
-      silverPasture[row2][col2] = 'E';
-      System.out.println(cowTravel(row1, col1));
+      startAdjacent(row1,col1);
+      for(int i = 1; i < seconds; i++){
+        addAdjacent();
+      }
+      return silverPasture[row2][col2];
+      /*String out = "";
+      for (int r = 0; r< row; r++) {
+        out += "\n";
+        for(int c = 0; c< col; c++) {
+          out += silverPasture[r][c] + " ";
+        }
+      }
+      System.out.println(out);*/
     }
     catch (FileNotFoundException e) {
       System.out.println("File not found");
-      System.exit(0);
+      return -1;
     }
   }
 
-  private boolean cowTravel(int r1, int c1) {
-    if((r1 < silverPasture.length) && (r1 >= 0) && (c1 < silverPasture[0].length) && (c1 >= 0) ){
-    if (silverPasture[r1][c1] == 'E' && (secTrack == seconds)) {
-      secTrack = 0;
-      return true;
-    }
-      if((silverPasture[r1][c1] == '.')) {
-        silverPasture[r1][c1] = '@';
-        if (cowTravel(r1 + 1, c1)) {
-            secTrack += 1;
-            return true;
+  private boolean onBoard(int r, int c) {
+    return (r >= 0 && r < silverPasture.length) && (c >= 0 && c < silverPasture[0].length);
+  }
+
+  private void addAdjacent() {
+    int[][]secondSilverPasture = new int[silverPasture.length][silverPasture[0].length];
+    for(int r = 0; r < silverPasture.length; r++){
+      for (int c = 0;c < silverPasture[0].length;c++ ) {
+        if(onBoard(r + 1, c)  && (isNotTree(r + 1, c))) {
+          secondSilverPasture[r][c] += silverPasture[r + 1][c];
         }
-        if (cowTravel(r1 - 1, c1)) {
-            secTrack += 1;
-            return true;
+        if(onBoard(r - 1, c)  && (isNotTree(r - 1, c))) {
+          secondSilverPasture[r][c] += silverPasture[r - 1][c];
         }
-        if (cowTravel(r1, c1 + 1)){
-            secTrack +=1;
-            return true;
+        if(onBoard(r, c + 1)  && (isNotTree(r, c + 1))) {
+          secondSilverPasture[r][c] += silverPasture[r][c + 1];
         }
-        if (cowTravel(r1, c1 - 1)) {
-            secTrack += 1;
-            return true;
+        if(onBoard(r, c - 1)  && (isNotTree(r, c - 1))) {
+          secondSilverPasture[r][c] += silverPasture[r][c - 1];
         }
-        secTrack -= 1;
-        silverPasture[r1][c1] = '#';
+        if(silverPasture[r][c] == -1){
+          secondSilverPasture[r][c] = -1;
+        }
       }
     }
-    return false;
+    silverPasture = secondSilverPasture;
   }
 
+  private void startAdjacent(int r, int c){
+    if(onBoard(r+1, c) && (isNotTree(r+1, c))){
+      silverPasture[r+1][c] = 1;
+    }
+    if(onBoard(r-1, c) && (isNotTree(r-1, c))){
+      silverPasture[r-1][c] = 1;
+    }
+    if(onBoard(r, c + 1) && (isNotTree(r, c + 1))){
+      silverPasture[r][c + 1] = 1;
+    }
+    if(onBoard(r, c - 1) && (isNotTree(r, c - 1))){
+      silverPasture[r][c - 1] = 1;
+    }
+  }
+  private boolean isNotTree(int r, int c) {
+    return !(silverPasture[r][c] == -1);
+  }
   public static void main(String[]args) {
     USACO x = new USACO();
-    x.silver("travel.txt");
-
+    System.out.println(x.silver("travel.txt"));
   }
 }
