@@ -147,6 +147,31 @@ public class MyLinkedList{
   }
 
 
+    private void insertAfter(LNode toBeAdded, LNode location){
+	toBeAdded.next = location.next;
+	location.next.prev = toBeAdded;
+	toBeAdded.prev = location;
+	location.next=toBeAdded;
+     }
+
+    private void insertBefore(LNode toBeAdded, LNode location){
+	toBeAdded.next = location;
+	location.prev.next = toBeAdded;
+	toBeAdded.prev = location.prev;
+	location.prev = toBeAdded;
+    }
+
+    private void add(int index, int value){
+	if (index == size()){
+	    add(value);
+	}
+	else{
+	    LNode x = new LNode(value);
+	LNode location = getNode(index);
+	insertBefore(x, location);
+	}
+	size += 1;
+    }
 
   public String toString(){
     String retValue = "[ ";
@@ -157,7 +182,7 @@ public class MyLinkedList{
         retValue += ", " + current.value;
         current = current.next;
     }
-    return retValue + "]";
+    return retValue + "]" + "\nthe head value is " + head.value + " and the tail value is " + tail.value;
   }
 
   public static void main(String[]args){
@@ -170,11 +195,12 @@ public class MyLinkedList{
     a.add(5);
     a.add(6);
     a.add(7);
-    a.remove(5);
+    a.add(7,8);
     //System.out.println(x);
-    System.out.println(a.toString());
+    //System.out.println(a.toString());
     //System.out.println(a.get(2));
     //System.out.println(a.remove(3));
+    System.out.println("this is the size " + a.size());
     System.out.println(a.toString());
 
   }
