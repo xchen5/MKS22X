@@ -109,12 +109,26 @@ public class MyLinkedList{
   }*/
 
   private void remove(LNode x){
-    x.prev.next = x.next;
-    x.next.prev = x.prev;
+      if( x.prev == null){
+	  x.next.prev = null;
+	  head = x.next;
+      }
+      else if(x.next == null){
+	  x.prev.next = null;
+	  tail = x.prev;
+      }
+      else{
+	  x.prev.next = x.next;
+	  x.next.prev = x.prev;
+	  
+      }
     size -= 1;
   }
 
   public int remove(int index){
+      if (index < 0 || index >= size()){
+	  throw new IndexOutOfBoundsException();
+      }
     int ret = get(index);
     LNode x = getNode(index);
     remove(x);
@@ -162,15 +176,25 @@ public class MyLinkedList{
     }
 
     private void add(int index, int value){
+	if(index < 0 || index > size()){
+	    throw new IndexOutOfBoundsException();
+	}
 	if (index == size()){
 	    add(value);
 	}
+	else if(index == 0){
+	    LNode x= new LNode(value);
+	    head.prev = x;
+	    x.next = head;
+	    head = x;
+	    size += 1;
+	}
 	else{
-	    LNode x = new LNode(value);
+	LNode x = new LNode(value);
 	LNode location = getNode(index);
 	insertBefore(x, location);
+	size +=1;
 	}
-	size += 1;
     }
 
   public String toString(){
@@ -195,7 +219,7 @@ public class MyLinkedList{
     a.add(5);
     a.add(6);
     a.add(7);
-    a.add(7,8);
+    a.remove(7);
     //System.out.println(x);
     //System.out.println(a.toString());
     //System.out.println(a.get(2));
