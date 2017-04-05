@@ -117,6 +117,10 @@ public class MyLinkedList{
 	  x.prev.next = null;
 	  tail = x.prev;
       }
+      else if( x.next == null && x.prev == null){
+	  x = null;
+	  size -= 1;
+      }
       else{
 	  x.prev.next = x.next;
 	  x.next.prev = x.prev;
@@ -211,15 +215,15 @@ public class MyLinkedList{
 
   public static void main(String[]args){
     MyLinkedList a = new MyLinkedList();
-    a.add(0);
-    a.add(1);
+     a.add(0);
+     /*a.add(1);
     a.add(2);
     a.add(3);
     a.add(4);
     a.add(5);
     a.add(6);
-    a.add(7);
-    a.remove(7);
+    a.add(7);*/
+    a.remove(0);
     //System.out.println(x);
     //System.out.println(a.toString());
     //System.out.println(a.get(2));
