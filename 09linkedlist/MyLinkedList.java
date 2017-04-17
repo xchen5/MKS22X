@@ -26,10 +26,18 @@ public class MyLinkedList{
       value = val;
       next = nextNode;
     }
-    public String toString(){
-      return "" + (prev.value) + (value) + (next.value);
+    /*public String toString(){
+      if (prev.value == null) {
+        return "null " + value + " " +  next.value;
+      }
+      else if (next.value == null) {
+        return "" + prev.value + " " + value + " null";
+      }
+      else{
+      return "" + (prev.value) + " "+ (value) + " " + (next.value);
     }
-  }
+  }*/
+}
 
 
   public boolean add(int value){
@@ -109,7 +117,12 @@ public class MyLinkedList{
   }*/
 
   private void remove(LNode x){
-      if( x.prev == null){
+    if( x.next == null && x.prev == null){
+      x = null;
+      head = null;
+      tail = null;
+}
+    else if( x.prev == null){
 	  x.next.prev = null;
 	  head = x.next;
       }
@@ -117,14 +130,10 @@ public class MyLinkedList{
 	  x.prev.next = null;
 	  tail = x.prev;
       }
-      else if( x.next == null && x.prev == null){
-	  x = null;
-	  size -= 1;
-      }
       else{
 	  x.prev.next = x.next;
 	  x.next.prev = x.prev;
-	  
+
       }
     size -= 1;
   }
@@ -202,7 +211,11 @@ public class MyLinkedList{
     }
 
   public String toString(){
-    String retValue = "[ ";
+    if (size == 0) {
+      return "[]";
+    }
+    else {
+      String retValue = "[ ";
     LNode current = head;
     retValue += current.value;
     current = current.next;
@@ -212,18 +225,20 @@ public class MyLinkedList{
     }
     return retValue + "]" + "\nthe head value is " + head.value + " and the tail value is " + tail.value;
   }
+  }
 
   public static void main(String[]args){
-    MyLinkedList a = new MyLinkedList();
-     a.add(0);
-     /*a.add(1);
+    /*MyLinkedList a = new MyLinkedList();
+    a.add(0, 20);
+    a.add(1);
     a.add(2);
     a.add(3);
     a.add(4);
     a.add(5);
     a.add(6);
     a.add(7);*/
-    a.remove(0);
+    //a.remove(a.size() - 1);
+    //System.out.println(a.getNode(0));
     //System.out.println(x);
     //System.out.println(a.toString());
     //System.out.println(a.get(2));
