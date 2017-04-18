@@ -220,7 +220,7 @@ private void insertBefore(LNode toBeAdded, LNode location){
   location.prev = toBeAdded;
 }
 
-private void add(int index, int value){
+public void add(int index, int value){
   if(index < 0 || index > size()){
     throw new IndexOutOfBoundsException();
   }
