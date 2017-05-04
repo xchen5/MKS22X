@@ -1,0 +1,20 @@
+import java.util.*;
+public class MyHeap {
+    private ArrayList<String> heap;
+    private int size;
+    private boolean isMax;
+
+    public MyHeap(){
+	heap = new String[20];
+	size = 0;
+	isMax = true;
+    }
+
+    public MyHeap(boolean x){
+	heap = new String[20];
+	size = 0;
+	isMax = x;
+    }
+
+    public ad-
+}
