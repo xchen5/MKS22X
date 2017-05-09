@@ -1,25 +1,25 @@
 import java.util.*;
 public class MyHeap {
-    private ArrayList<String> heap = new ArrayList<String>();
+    private ArrayList<Integer> heap = new ArrayList<Integer>();
     private boolean isMax;
 
     public MyHeap(){
-	heap.add("");
+	heap.add(0);
 	isMax = true;
     }
 
     public MyHeap(boolean x){
-	heap.add("");
+	heap.add(0);
 	isMax = x;
     }
 
-    public void add(String s){
+    public void add(Integer s){
 	heap.add(s);
 	pushUp(heap.size() - 1);
     }
 
-    public String remove(){
-      String ret = heap.get(1);
+    public Integer remove(){
+      Integer ret = heap.get(1);
       heap.set(1, heap.remove(heap.size() - 1));
       pushDown(1);
       return ret;
@@ -29,7 +29,7 @@ public class MyHeap {
 	String ret = "[";
 	for(int i = 1; i < heap.size(); i++){
 	    if(i == heap.size() - 1){
-		ret += heap.get(i);
+		ret += heap.get(i) + "";
 	    }
 	    else{
 		ret += heap.get(i) + ", ";
@@ -47,8 +47,8 @@ public class MyHeap {
     }
 
     private void swap(int ind1, int ind2){
-	String firstval =  heap.get(ind1);
-	String secondval = heap.get(ind2);
+	Integer firstval =  heap.get(ind1);
+	Integer secondval = heap.get(ind2);
 	heap.set(ind1, secondval);
 	heap.set(ind2, firstval);
     }
@@ -103,16 +103,20 @@ public class MyHeap {
     }
   }
 
-    public String peek(){
+    public Integer peek(){
       return heap.get(1);
+    }
+
+    public int getSize(){
+      return heap.size() - 1;
     }
     public static void main(String[]args){
 	MyHeap a = new MyHeap(false);
-  a.add("x");
-	a.add("y");
-	a.add("z");
-  a.add("w");
-  a.add("a");
+  a.add(1);
+	a.add(2);
+	a.add(3);
+  a.add(4);
+  a.add(4);
   a.remove();
 	System.out.println(a);
     }
