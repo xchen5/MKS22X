@@ -18,9 +18,11 @@ public class MyHeap {
 	pushUp(heap.size() - 1);
     }
 
-    public void remove(){
+    public String remove(){
+      String ret = heap.get(1);
       heap.set(1, heap.remove(heap.size() - 1));
       pushDown(1);
+      return ret;
     }
 
     public String toString(){
