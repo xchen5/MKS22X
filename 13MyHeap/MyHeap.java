@@ -15,7 +15,12 @@ public class MyHeap {
 
     public void add(String s){
 	heap.add(s);
-	pushUp();
+	pushUp(heap.size() - 1);
+    }
+
+    public void remove(){
+      heap.set(1, heap.remove(heap.size() - 1));
+      pushDown(1);
     }
 
     public String toString(){
@@ -30,9 +35,13 @@ public class MyHeap {
 	}
 	return ret + "]";
     }
-    
+
     private boolean hasParent(int index){
-	return (index / 2) > 0; 
+	return (index / 2) > 0;
+    }
+
+    private boolean hasChildren(int index) {
+      return (index * 2) < heap.size();
     }
 
     private void swap(int ind1, int ind2){
@@ -42,16 +51,67 @@ public class MyHeap {
 	heap.set(ind2, firstval);
     }
 
-    private void pushUp(){
-	if(heap.get(heap.size()-1).compareTo(heap.get((heap.size()-1) / 2)) < 0 ){
-	    swap( heap.size()-1 , (heap.size()-1)/2);
-	}
+    private void pushDown(int index){
+      if (isMax == true){
+      while(hasChildren(index)){
+        if(heap.get(index).compareTo(heap.get(index * 2)) >  0){
+          swap( index, index * 2);
+          pushUp(index * 2);
+        }
+        else{
+          return;
+        }
+      }
+    }
+    else{
+      while(hasChildren(index)){
+        if(heap.get(index).compareTo(heap.get(index * 2)) <  0){
+          swap( index, index * 2);
+          pushUp(index * 2);
+        }
+        else{
+          return;
+        }
+      }
+    }
+  }
+
+    private void pushUp(int index){
+      if (isMax == true) {
+      while(hasParent(index)){
+        if(heap.get(index).compareTo(heap.get(index / 2)) < 0){
+          swap( index, index / 2);
+          pushUp(index / 2);
+        }
+        else{
+          return;
+        }
+      }
+    }
+    else {
+      while(hasParent(index)){
+        if(heap.get(index).compareTo(heap.get(index / 2)) > 0){
+          swap( index, index / 2);
+          pushUp(index / 2);
+        }
+        else{
+          return;
+        }
+      }
+    }
+  }
+
+    public String peek(){
+      return heap.get(1);
     }
     public static void main(String[]args){
-	MyHeap a = new MyHeap();
-	a.add("x");
-	a.add("hi");
-	a.add("bye");
+	MyHeap a = new MyHeap(false);
+  a.add("x");
+	a.add("y");
+	a.add("z");
+  a.add("w");
+  a.add("a");
+  a.remove();
 	System.out.println(a);
     }
 }
