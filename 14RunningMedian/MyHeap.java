@@ -55,26 +55,16 @@ public class MyHeap {
 
     private void pushDown(int index){
       if (isMax == false){
-      while(hasChildren(index)){
-        if(heap.get(index).compareTo(heap.get(index * 2)) >  0){
+        if(hasChildren(index) && (heap.get(index).compareTo(heap.get(index * 2)) >  0)){
           swap( index, index * 2);
-          pushUp(index * 2);
+          pushDown(index * 2);
         }
-        else{
-          return;
-        }
-      }
     }
     else{
-      while(hasChildren(index)){
-        if(heap.get(index).compareTo(heap.get(index * 2)) <  0){
+        if(hasChildren(index) && (heap.get(index).compareTo(heap.get(index * 2)) <  0) ){
           swap( index, index * 2);
-          pushUp(index * 2);
+          pushDown(index * 2);
         }
-        else{
-          return;
-        }
-      }
     }
   }
 
@@ -112,12 +102,14 @@ public class MyHeap {
     }
     public static void main(String[]args){
 	MyHeap a = new MyHeap(false);
-  a.add(1);
-	a.add(2);
-	a.add(3);
-  a.add(4);
-  a.add(4);
-  a.remove();
+  for(int i = 0; i < 10; i++){
+    a.add(i);
+    System.out.println(a);
+  }
+  for(int i = 0; i < 9; i++){
+    a.remove();
+    System.out.println(a);
+  }
 	System.out.println(a);
     }
 }

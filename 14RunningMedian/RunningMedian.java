@@ -11,7 +11,7 @@ public class RunningMedian{
     if(maxHeap.getSize() == 0 && minHeap.getSize() == 0){
       maxHeap.add(x);
     }
-    else if(x < maxHeap.peek()){
+    else if(x < getMedian()){
       maxHeap.add(x);
       adjustHeap();
     }
@@ -52,6 +52,10 @@ public class RunningMedian{
     a.add(3);
     a.add(4);
     a.add(5);
+    a.add(6);
+    a.add(7);
+    a.add(8);
+
     //a.add(6);
     System.out.println(a.getMedian());
     }
