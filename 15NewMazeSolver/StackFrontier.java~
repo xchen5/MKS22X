@@ -1,0 +1,8 @@
+import java.util.*;
+public StackFrontier implements Frontier{
+    Stack<Location> stacc = new LinkedList<Location>();
+
+    public StackFrontier(){
+
+    }
+}

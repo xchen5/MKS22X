@@ -1,0 +1,14 @@
+import java.util.*;
+public class QueueFrontier implements Frontier{
+    Queue<Location> qu = new LinkedList<Location>();
+    public QueueFrontier(){
+    
+    }
+    public void add(Location a){
+	qu.add(a);
+    }
+
+    public Location next(){
+	return qu.poll();
+    }
+}
